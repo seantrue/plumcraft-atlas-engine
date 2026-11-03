@@ -1,0 +1,343 @@
+{
+  "version": 1,
+  "nodes": {
+    "sum": {
+      "kind": "atlas.add",
+      "values": {
+        "a": 2.0,
+        "b": 0.5
+      }
+    },
+    "formatted": {
+      "kind": "atlas.format_number",
+      "values": {
+        "decimals": 3
+      }
+    },
+    "parsed": {
+      "kind": "atlas.parse_number"
+    },
+    "source": {
+      "kind": "atlas.text",
+      "values": {
+        "text": "a corgi naps"
+      }
+    },
+    "loud": {
+      "kind": "atlas.shout",
+      "values": {
+        "marks": 3
+      }
+    },
+    "hex": {
+      "kind": "atlas.text_to_hex"
+    },
+    "back": {
+      "kind": "atlas.hex_to_text"
+    },
+    "waited": {
+      "kind": "atlas.slow"
+    },
+    "sample": {
+      "kind": "atlas.sample_table"
+    },
+    "sorted": {
+      "kind": "atlas.sort_rows",
+      "values": {
+        "descending": true
+      }
+    },
+    "csv": {
+      "kind": "atlas.table_to_csv"
+    },
+    "parsed_csv": {
+      "kind": "atlas.csv_to_table"
+    },
+    "gradient": {
+      "kind": "atlas.ramp"
+    },
+    "unit": {
+      "kind": "atlas.normalize"
+    },
+    "numbers": {
+      "kind": "atlas.table_to_array"
+    },
+    "numbers_back": {
+      "kind": "atlas.array_to_table"
+    },
+    "drawing": {
+      "kind": "atlas.shapes"
+    },
+    "green": {
+      "kind": "atlas.recolor"
+    },
+    "svg_source": {
+      "kind": "atlas.svg_to_text"
+    },
+    "svg_back": {
+      "kind": "atlas.text_to_svg"
+    },
+    "board": {
+      "kind": "atlas.checkerboard"
+    },
+    "board_size": {
+      "kind": "atlas.image_size"
+    },
+    "pixels": {
+      "kind": "atlas.image_to_array"
+    },
+    "repainted": {
+      "kind": "atlas.array_to_image"
+    },
+    "beep": {
+      "kind": "atlas.tone"
+    },
+    "quiet": {
+      "kind": "atlas.gain"
+    },
+    "samples": {
+      "kind": "atlas.audio_to_array"
+    },
+    "played": {
+      "kind": "atlas.array_to_audio"
+    },
+    "words": {
+      "kind": "atlas.split"
+    },
+    "sentence": {
+      "kind": "atlas.join_list"
+    }
+  },
+  "wires": [
+    {
+      "from": {
+        "node": "sum",
+        "port": "float"
+      },
+      "to": {
+        "node": "formatted",
+        "port": "value"
+      }
+    },
+    {
+      "from": {
+        "node": "formatted",
+        "port": "string"
+      },
+      "to": {
+        "node": "parsed",
+        "port": "string"
+      }
+    },
+    {
+      "from": {
+        "node": "source",
+        "port": "text"
+      },
+      "to": {
+        "node": "loud",
+        "port": "text"
+      }
+    },
+    {
+      "from": {
+        "node": "loud",
+        "port": "text"
+      },
+      "to": {
+        "node": "hex",
+        "port": "text"
+      }
+    },
+    {
+      "from": {
+        "node": "hex",
+        "port": "string"
+      },
+      "to": {
+        "node": "back",
+        "port": "string"
+      }
+    },
+    {
+      "from": {
+        "node": "back",
+        "port": "text"
+      },
+      "to": {
+        "node": "waited",
+        "port": "text"
+      }
+    },
+    {
+      "from": {
+        "node": "sample",
+        "port": "table"
+      },
+      "to": {
+        "node": "sorted",
+        "port": "table"
+      }
+    },
+    {
+      "from": {
+        "node": "sorted",
+        "port": "table"
+      },
+      "to": {
+        "node": "csv",
+        "port": "table"
+      }
+    },
+    {
+      "from": {
+        "node": "csv",
+        "port": "text"
+      },
+      "to": {
+        "node": "parsed_csv",
+        "port": "text"
+      }
+    },
+    {
+      "from": {
+        "node": "gradient",
+        "port": "array"
+      },
+      "to": {
+        "node": "unit",
+        "port": "array"
+      }
+    },
+    {
+      "from": {
+        "node": "sorted",
+        "port": "table"
+      },
+      "to": {
+        "node": "numbers",
+        "port": "table"
+      }
+    },
+    {
+      "from": {
+        "node": "numbers",
+        "port": "array"
+      },
+      "to": {
+        "node": "numbers_back",
+        "port": "array"
+      }
+    },
+    {
+      "from": {
+        "node": "drawing",
+        "port": "svg"
+      },
+      "to": {
+        "node": "green",
+        "port": "drawing"
+      }
+    },
+    {
+      "from": {
+        "node": "green",
+        "port": "svg"
+      },
+      "to": {
+        "node": "svg_source",
+        "port": "drawing"
+      }
+    },
+    {
+      "from": {
+        "node": "svg_source",
+        "port": "text"
+      },
+      "to": {
+        "node": "svg_back",
+        "port": "text"
+      }
+    },
+    {
+      "from": {
+        "node": "board",
+        "port": "image"
+      },
+      "to": {
+        "node": "board_size",
+        "port": "picture"
+      }
+    },
+    {
+      "from": {
+        "node": "board",
+        "port": "image"
+      },
+      "to": {
+        "node": "pixels",
+        "port": "picture"
+      }
+    },
+    {
+      "from": {
+        "node": "pixels",
+        "port": "array"
+      },
+      "to": {
+        "node": "repainted",
+        "port": "array"
+      }
+    },
+    {
+      "from": {
+        "node": "beep",
+        "port": "audio"
+      },
+      "to": {
+        "node": "quiet",
+        "port": "audio"
+      }
+    },
+    {
+      "from": {
+        "node": "quiet",
+        "port": "audio"
+      },
+      "to": {
+        "node": "samples",
+        "port": "audio"
+      }
+    },
+    {
+      "from": {
+        "node": "samples",
+        "port": "array"
+      },
+      "to": {
+        "node": "played",
+        "port": "array"
+      }
+    },
+    {
+      "from": {
+        "node": "source",
+        "port": "text"
+      },
+      "to": {
+        "node": "words",
+        "port": "text"
+      }
+    },
+    {
+      "from": {
+        "node": "words",
+        "port": "items"
+      },
+      "to": {
+        "node": "sentence",
+        "port": "items"
+      }
+    }
+  ]
+}

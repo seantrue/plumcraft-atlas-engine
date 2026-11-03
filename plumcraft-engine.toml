@@ -1,0 +1,9 @@
+# The engine manifest (docs/interface.md, section 16.6): how PlumCraft starts this engine.
+id = "atlas"
+name = "Atlas"
+mode = "process"
+command = ["uv", "run", "--project", ".", "python", "-m", "atlas_engine"]
+cwd = "."
+restart = "on-crash"
+max_restarts = 5
+hint = "uv sync, in this project"

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# The same run through PlumCraft's Rust CLI: serves this engine on a spare port, then
+# `plumcraft run --attach`. It needs a built PlumCraft (see _plumcraft.sh).
+#   scripts/cli-run [GRAPH.json] [--watch NODE.PORT]...
+set -euo pipefail
+cd "$(dirname "$0")/.."
+source scripts/_plumcraft.sh
+plumcraft=$(find_plumcraft plumcraft)
+if [[ $# -gt 0 && "$1" != -* ]]; then
+    graph=$1
+    shift
+else
+    graph=examples/demo.json
+fi
+port_file=$(mktemp)
+uv run python -m atlas_engine --listen 127.0.0.1:0 --port-file "$port_file" &
+server=$!
+trap 'kill "$server" 2>/dev/null || true; rm -f "$port_file"' EXIT
+for _ in $(seq 100); do
+    [[ -s "$port_file" ]] && break
+    sleep 0.1
+done
+[[ -s "$port_file" ]] || { echo "the engine didn't start" >&2; exit 2; }
+"$plumcraft" run "$graph" --attach "http://$(cat "$port_file")" "$@"
